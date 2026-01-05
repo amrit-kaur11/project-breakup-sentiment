@@ -1,0 +1,11 @@
+streamlit
+transformers
+tokenizers
+safetensors
+scikit-learn
+joblib
+numpy
+pandas
+requests
+torch==2.* ; platform_system!="Windows" or platform_machine=="x86_64"
+torch --extra-index-url https://download.pytorch.org/whl/cpu

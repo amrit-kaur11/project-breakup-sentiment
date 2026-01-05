@@ -1,0 +1,10 @@
+.venv/
+data/
+models/
+artifacts/
+.env
+.ipynb_checkpoints/
+__pycache__/
+.ollama/
+.streamlit/
+.vscode/
