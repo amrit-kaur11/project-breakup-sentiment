@@ -103,7 +103,9 @@ Open:
 arduino
 Copy code
 http://localhost:8501
-📈 What this demonstrates
+```
+
+## 📈 What this demonstrates
 This project shows skills in:
 
 Low-resource NLP
