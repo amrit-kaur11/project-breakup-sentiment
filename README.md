@@ -80,6 +80,14 @@ This makes the model **interpretable and human-friendly**.
 
 ---
 
+## 📸 Demo
+
+![UI](screenshots/ui.png)
+![Data-centric probabilities](screenshots/data-centric_model_probabilities.png)
+![LLM summary (data-centric)](screenshots/llm_summary%20of%20data-centric%20model.png)
+![Model-centric probabilities](screenshots/model-centric_model_probabilities.png)
+![LLM summary (model-centric)](screenshots/llm_summary%20of%20model-centric%20model.png)
+
 ## ▶️ How to run locally
 
 ### 1️⃣ Install dependencies
