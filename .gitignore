@@ -1,10 +1,11 @@
+desktop.ini
+outputs/
 .venv/
 data/
 models/
 artifacts/
-.env
-.ipynb_checkpoints/
 __pycache__/
+.ipynb_checkpoints/
 .ollama/
 .streamlit/
 .vscode/
