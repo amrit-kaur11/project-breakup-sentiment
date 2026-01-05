@@ -1,121 +1,126 @@
-# Domain-Specific Sentiment Analysis (Reddit Break-Ups)
-Multi-class sentiment/emotion classification for breakup posts, comparing:
-- **Model-centric**: DistilBERT fine-tuning
-- **Data-centric**: TF-IDF + Logistic Regression (+ simple augmentation)
-Includes a **Streamlit UI** with **LLM explanations** (“why” the text fits a class).
+# 💔 Domain-Specific Sentiment Analysis for Reddit Break-Ups  
+*(Low-Resource NLP + LLM Explanations)*
 
-**Classes:** `anger`, `confusion`, `relief`, `sadness`
+This project builds a **real-world NLP system** that classifies emotions in Reddit breakup posts and explains predictions using a **local LLM (Ollama)**.
+
+The system compares two strategies:
+- **Data-centric:** TF-IDF + Logistic Regression  
+- **Model-centric:** DistilBERT fine-tuned on low-resource breakup data  
+
+A **Streamlit web app** lets users paste text and see:
+- Emotion prediction  
+- Confidence scores  
+- Important tokens  
+- **LLM-generated natural language explanation**
 
 ---
 
-## 1) Quick Start (UI)
+## 🚀 Why this project is unique
 
-### Requirements
-```bash
-pip install --upgrade pip
-pip install streamlit transformers tokenizers safetensors scikit-learn joblib numpy pandas requests
-# CPU Torch (Windows/CPU):
-pip install torch --index-url https://download.pytorch.org/whl/cpu
-```
+Most sentiment models are trained on generic data (tweets, reviews).  
+Break-up posts use **emotional, informal, and domain-specific language**.
 
-### Run
+This project shows how to build **high-accuracy NLP models in low-resource domains** using:
+- Smart data augmentation  
+- TF-IDF n-grams  
+- Transformer fine-tuning  
+- LLM-based explanation layer  
+
+---
+
+## 🧠 Emotions predicted
+
+The system predicts **four emotions**:
+
+| Emotion | Meaning |
+|--------|--------|
+| Anger | Frustration, resentment |
+| Confusion | Uncertainty, mixed feelings |
+| Relief | Emotional release |
+| Sadness | Grief, heartbreak |
+
+---
+
+## 🧩 System Architecture
+
+User Input
+↓
+TF-IDF / DistilBERT Model
+↓
+Probability Scores + Token Importance
+↓
+Ollama LLM (LLaMA 3.1)
+↓
+Human-Readable Explanation
+
+yaml
+Copy code
+
+---
+
+## 🖥 Web App (Streamlit)
+
+The UI provides:
+- Emotion probabilities
+- Token-level highlights
+- LLM-generated explanations
+
+This makes the model **interpretable and human-friendly**.
+
+---
+
+## 🛠 Tech Stack
+
+- Python  
+- Scikit-learn  
+- HuggingFace Transformers  
+- PyTorch  
+- Streamlit  
+- Ollama (LLaMA 3.1)
+
+---
+
+## ▶️ How to run locally
+
+### 1️⃣ Install dependencies
 ```bash
+pip install -r requirements.txt
+2️⃣ Start Ollama
+bash
+Copy code
+ollama serve
+Make sure a model is installed:
+
+bash
+Copy code
+ollama pull llama3.1
+3️⃣ Run the app
+bash
+Copy code
 streamlit run breakup_sentiment_ui_app.py
-```
+Open:
 
-In the **sidebar**, set paths (edit if different):
+arduino
+Copy code
+http://localhost:8501
+📈 What this demonstrates
+This project shows skills in:
 
-- **TF-IDF folder**  
-  `G:\My Drive\Sentiment Analysis\artifacts\tfidf_output`
-- **DistilBERT folder** (parent containing `best/` and `best_tok/`)  
-  `G:\My Drive\Sentiment Analysis\artifacts\distilbert_out_chunked`
-- **demo.csv path (optional)**  
-  `G:\My Drive\Sentiment Analysis\artifacts\demo.csv`
+Low-resource NLP
 
-The app shows prediction, probability bars, token highlights, and an LLM “explain like I’m 10”.
+Feature engineering (TF-IDF n-grams)
 
----
+Transformer fine-tuning
 
-## 2) Change LLM Provider (for explanations)
+Model explainability
 
-The app prefers **OpenAI-compatible** APIs if keys are set; otherwise it uses **Ollama** locally.
+LLM integration
 
-### OpenAI (ChatGPT) example
-```bash
-# PowerShell (set before running streamlit)
-$env:OPENAI_API_KEY = "sk-...your_openai_key..."
-$env:OPENAI_BASE_URL = "https://api.openai.com/v1"
-$env:OPENAI_MODEL = "gpt-4o-mini"
-```
+Building ML web apps
 
-### Other OpenAI-compatible providers
-Replace base URL + model, e.g. OpenRouter/Together/Groq.
+This mirrors how real AI products are built in companies.
 
-### Ollama (local, fallback)
-Install Ollama and (optionally):
-```bash
-$env:OLLAMA_MODEL = "llama3.1"
-$env:OLLAMA_URL = "http://localhost:11434"
-```
-
----
-
-## 3) Reproduce Training
-
-> Scripts live in `notebooks_or_scripts/` (names below).
-
-### A) EDA & Baselines
-```bash
-python "dataset_review,_eda_&_baseline_models.py"
-```
-Outputs: data summary, simple baselines.
-
-### B) Model-centric (DistilBERT fine-tune)
-```bash
-python "model_centric_—_distilbert_fine_tuning.py"
-```
-Outputs saved under `artifacts/distilbert_out_chunked/`:
-- `best/` → final model (`config.json`, `model.safetensors`, tokenizer files if exported there)
-- `best_tok/` → tokenizer files (app can load tokenizer from here)
-- `best_summary.json`, `grid_results.json`
-
-### C) Data-centric (TF-IDF + LR + augmentation)
-```bash
-python "data_centric_all_in_one.py"
-```
-Outputs saved under `artifacts/tfidf_output/`:
-- `tfidf_vectorizer.joblib`
-- `logreg_model.joblib`
-- `metrics.json` (optional)
-
----
-
-## 4) Expected Artifacts Layout
-
-```
-artifacts/
-  tfidf_output/
-    tfidf_vectorizer.joblib
-    logreg_model.joblib
-    metrics.json
-  distilbert_out_chunked/
-    best/            # model
-      config.json
-      model.safetensors
-      tokenizer.json
-      tokenizer_config.json
-      special_tokens_map.json
-      vocab.txt
-    best_tok/        # tokenizer (kept for completeness)
-    best_summary.json
-    grid_results.json
-```
-
-> The UI auto-detects `best/` for model and `best_tok/` for tokenizer.
-
----
-
-## 5) Notes & Tips
-- For long posts, you can set `BERT_MAX_LENGTH=384` (env var) before running to use more context.
-- A small **rules re-ranker** in the UI nudges very clear cues (emoji/ALL CAPS/“idk”)—toggle in the sidebar.
-- If you see “artifacts not found”, check the paths and filenames exactly as above.
+👩‍💻 Author
+Amrit Kaur
+Minor Degree in AI & Data Science (IIT Mandi × Masai)
+Aspiring ML Engineer / Data Scientist
