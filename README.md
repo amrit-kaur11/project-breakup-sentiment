@@ -124,5 +124,7 @@ This mirrors how real AI products are built in companies.
 
 👩‍💻 Author
 Amrit Kaur
+
 Minor Degree in AI & Data Science (IIT Mandi × Masai)
+
 Aspiring ML Engineer / Data Scientist
