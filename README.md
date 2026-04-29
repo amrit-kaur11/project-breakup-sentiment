@@ -53,8 +53,6 @@ Ollama LLM (LLaMA 3.1)
 ↓
 Human-Readable Explanation
 
-yaml
-Copy code
 
 ---
 
@@ -95,21 +93,16 @@ This makes the model **interpretable and human-friendly**.
 pip install -r requirements.txt
 2️⃣ Start Ollama
 bash
-Copy code
 ollama serve
 Make sure a model is installed:
 
 bash
-Copy code
 ollama pull llama3.1
 3️⃣ Run the app
 bash
-Copy code
 streamlit run breakup_sentiment_ui_app.py
 Open:
 
-arduino
-Copy code
 http://localhost:8501
 ```
 
